@@ -12,13 +12,6 @@ class SteamProfile
 	public $GetProfile;
 	public $FileImage; 
 	public $AvatarImage;
-	public $ColorGrayBorder;
-	public $ColorGray;
-	public $ColorOnline;
-	public $ColorInGame;
-	public $ColorpOnline;
-	public $ColorpInGame;
-	public $ColorStatus;
 	
 	// init class
 	public function __construct()
@@ -42,47 +35,47 @@ class SteamProfile
 		$this->FileImage = ImageCreateFromPNG("images/".$this->GetImage.".png"); 
 		$this->AvatarImage = ImageCreateFromJPEG($this->GetProfile->avatarMedium); 
 		
-		$this->ColorGrayBorder = imagecolorallocate($this->FileImage, 0, 0, 0);
-		$this->ColorGray = imagecolorallocate($this->FileImage, 255, 255, 255);
-		$this->ColorOnline = imagecolorallocate($this->FileImage, 128, 181, 223);
-		$this->ColorInGame = imagecolorallocate($this->FileImage, 167, 212, 105);
-		$this->ColorpOnline = imagecolorallocate($this->FileImage, 255-128, 255-181, 255-223);
-		$this->ColorpInGame = imagecolorallocate($this->FileImage, 255-167, 255-212, 255-105);
+		$ColorGrayBorder = imagecolorallocate($this->FileImage, 0, 0, 0);
+		$ColorGray = imagecolorallocate($this->FileImage, 255, 255, 255);
+		$ColorOnline = imagecolorallocate($this->FileImage, 128, 181, 223);
+		$ColorInGame = imagecolorallocate($this->FileImage, 167, 212, 105);
+		$ColorpOnline = imagecolorallocate($this->FileImage, 255-128, 255-181, 255-223);
+		$ColorpInGame = imagecolorallocate($this->FileImage, 255-167, 255-212, 255-105);
 		
 		@imagecopymerge($this->FileImage, $this->AvatarImage, 10, 10, 0, 0, 64, 64, 100); 
 		
-		$this->ImageTTFStrokeText($this->FileImage, 12, 0, 84, 24, $this->ColorGray,$this->ColorGrayBorder, "NanumGothic.ttf", $this->GetProfile->realname,1);
+		$this->ImageTTFStrokeText($this->FileImage, 12, 0, 84, 24, $ColorGray,$ColorGrayBorder, "NanumGothic.ttf", $this->GetProfile->realname,1);
 		
 		if($this->GetProfile->onlineState == "in-game") 
 		{ 
-			$ColorStatus = $this->ColorInGame; $ColorpStatus = $this->ColorpInGame; $TextStatus = "게임 중"; 
+			$ColorStatus = $ColorInGame; $ColorpStatus = $ColorpInGame; $TextStatus = "게임 중"; 
 		}
 		elseif($this->GetProfile->onlineState == "online")
 		{ 
-			$ColorStatus = $this->ColorOnline; $ColorpStatus = $this->ColorpOnline; $TextStatus = "온라인"; 
+			$ColorStatus = $ColorOnline; $ColorpStatus = $ColorpOnline; $TextStatus = "온라인"; 
 		}
 		elseif($this->GetProfile->onlineState == "offline") 
 		{ 
-			$ColorStatus = $this->ColorGray;$ColorpStatus = $this->ColorGrayBorder; $TextStatus = "오프라인"; 
+			$ColorStatus = $ColorGray;$ColorpStatus = $ColorGrayBorder; $TextStatus = "오프라인"; 
 		}
 		else 
 		{
-			$ColorStatus = $this->ColorOnline; $ColorpStatus = $this->ColorpOnline; $TextStatus = $GetProfile->stateMessage;
+			$ColorStatus = $ColorOnline; $ColorpStatus = $ColorpOnline; $TextStatus = $GetProfile->stateMessage;
 		}
 		
 		$this->ImageTTFStrokeText($this->FileImage, 9, 0, 84, 44, $ColorStatus,$ColorpStatus, "NanumGothic.ttf", $TextStatus,1);
-		$this->ImageTTFStrokeText($this->FileImage, 9, 0, 84, 62, $this->ColorGray,$this->ColorGrayBorder, "NanumGothic.ttf", $this->GetProfile->location,1);
+		$this->ImageTTFStrokeText($this->FileImage, 9, 0, 84, 62, $ColorGray,$ColorGrayBorder, "NanumGothic.ttf", $this->GetProfile->location,1);
 		
-		$this->ImageTTFStrokeText($this->FileImage, 8, 0, 14, 102, $this->ColorGray,$this->ColorGrayBorder, "NanumGothic.ttf", "많이 플레이한 게임",1);
-		$this->ImageTTFStrokeText($this->FileImage, 8, 0, 244, 102, $this->ColorGray,$this->ColorGrayBorder, "NanumGothic.ttf", "자주 하는 게임",1);
+		$this->ImageTTFStrokeText($this->FileImage, 8, 0, 14, 102, $ColorGray,$ColorGrayBorder, "NanumGothic.ttf", "많이 플레이한 게임",1);
+		$this->ImageTTFStrokeText($this->FileImage, 8, 0, 244, 102, $ColorGray,$ColorGrayBorder, "NanumGothic.ttf", "자주 하는 게임",1);
 		
 		$TmpImage = @ImageCreateFromJPEG($this->GetProfile->mostPlayedGames->mostPlayedGame[0]->gameIcon); 
 		@imagecopymerge($this->FileImage, $TmpImage, 14, 112, 0, 0, 32, 32, 100); 
 		@ImageDestroy($TmpImage); 
 		
-		$this->ImageTTFStrokeText($this->FileImage, 8, 0, 54, 122, $this->ColorGray,$this->ColorGrayBorder, "NanumGothic.ttf", $this->GetProfile->mostPlayedGames->mostPlayedGame[0]->gameName,1);
+		$this->ImageTTFStrokeText($this->FileImage, 8, 0, 54, 122, $ColorGray,$ColorGrayBorder, "NanumGothic.ttf", $this->GetProfile->mostPlayedGames->mostPlayedGame[0]->gameName,1);
 		///@imagettftext($FileImage, 8, 0, 254, 40, $ColorGray, "NanumGothic.ttf", $GetProfile->mostPlayedGames->mostPlayedGame[0]->gameName);
-		$this->ImageTTFStrokeText($this->FileImage, 8, 0, 54, 140, $this->ColorGray, $this->ColorGrayBorder, "NanumGothic.ttf", "총 ".$this->GetProfile->mostPlayedGames->mostPlayedGame[0]->hoursOnRecord."시간 플레이",1);
+		$this->ImageTTFStrokeText($this->FileImage, 8, 0, 54, 140, $ColorGray, $ColorGrayBorder, "NanumGothic.ttf", "총 ".$this->GetProfile->mostPlayedGames->mostPlayedGame[0]->hoursOnRecord."시간 플레이",1);
 	
 		if($this->GetProfile->mostPlayedGames->mostPlayedGame[1]->gameIcon)
 		{
