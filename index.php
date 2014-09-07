@@ -112,9 +112,9 @@ class SteamProfile
 	}
 	
 	function ImageTTFStrokeText(&$image, $size, $angle, $x, $y, &$textcolor, &$strokecolor, $fontfile, $text, $px) {
- 
-		for($c1 = ($x-abs($px)); $c1 <= ($x+abs($px)); $c1++)
-			for($c2 = ($y-abs($px)); $c2 <= ($y+abs($px)); $c2++)
+		$AbsCache = abs($px);
+		for($c1 = ($x-$AbsCache); $c1 <= ($x+$AbsCache); $c1++)
+			for($c2 = ($y-$AbsCache); $c2 <= ($y+$AbsCache); $c2++)
 				$bg = imagettftext($image, $size, $angle, $c1, $c2, $strokecolor, $fontfile, $text);
 	 
 	   return imagettftext($image, $size, $angle, $x, $y, $textcolor, $fontfile, $text);
