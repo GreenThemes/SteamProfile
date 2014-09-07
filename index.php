@@ -73,8 +73,8 @@ class SteamProfile
 		$this->ImageTTFStrokeText($this->FileImage, 9, 0, 84, 44, $ColorStatus,$ColorpStatus, "NanumGothic.ttf", $TextStatus,1);
 		$this->ImageTTFStrokeText($this->FileImage, 9, 0, 84, 62, $this->ColorGray,$this->ColorGrayBorder, "NanumGothic.ttf", $this->GetProfile->location,1);
 		
-		$this->ImageTTFStrokeText($this->FileImage, 8, 0, 14, 102, $this->ColorGray,$this->ColorGrayBorder, "NanumGothic.ttf", "자주 하는 게임",1);
-		$this->ImageTTFStrokeText($this->FileImage, 8, 0, 244, 102, $this->ColorGray,$this->ColorGrayBorder, "NanumGothic.ttf", "많이 플레이 한 게임",1);
+		$this->ImageTTFStrokeText($this->FileImage, 8, 0, 14, 102, $this->ColorGray,$this->ColorGrayBorder, "NanumGothic.ttf", "많이 플레이한 게임",1);
+		$this->ImageTTFStrokeText($this->FileImage, 8, 0, 244, 102, $this->ColorGray,$this->ColorGrayBorder, "NanumGothic.ttf", "자주 하는 게임",1);
 		
 		$TmpImage = @ImageCreateFromJPEG($this->GetProfile->mostPlayedGames->mostPlayedGame[0]->gameIcon); 
 		@imagecopymerge($this->FileImage, $TmpImage, 14, 112, 0, 0, 32, 32, 100); 
